@@ -1,0 +1,5 @@
+{
+  "name": "AI Token & Cost Estimator",
+  "description": "An MVP application to count tokens and estimate real-time costs in USD and IDR for various AI model providers like OpenAI, Anthropic, and Google Gemini. Features a cost estimator, a usage dashboard, and a pricing reference page.",
+  "requestFramePermissions": []
+}
