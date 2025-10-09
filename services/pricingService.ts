@@ -75,7 +75,18 @@ export const fetchModels = async (): Promise<Model[]> => {
         const headers: HeadersInit = {};
         if (!isDev) {
             // Add API key for production
-            headers['x-api-key'] = import.meta.env.VITE_ARTIFICIAL_ANALYSIS_API_KEY || '';
+            const apiKey = import.meta.env.VITE_ARTIFICIAL_ANALYSIS_API_KEY || '';
+            headers['x-api-key'] = apiKey;
+
+            // Debug logging
+            console.log('🔍 [DEBUG] Production API Call:', {
+                isDev,
+                apiUrl,
+                hasApiKey: !!apiKey,
+                apiKeyLength: apiKey.length,
+                apiKeyPrefix: apiKey.substring(0, 5) + '...',
+                headers
+            });
         }
 
         const response = await fetch(apiUrl, { headers });
@@ -137,6 +148,12 @@ export const getUsdToIdrRate = async (): Promise<FxRate> => {
     const apiUrl = isDev
         ? '/api/exchange'
         : 'https://api.exchangerate-api.com/v4/latest/USD';
+
+    // Debug logging
+    console.log('🔍 [DEBUG] FX Rate API Call:', {
+        isDev,
+        apiUrl
+    });
 
     const response = await fetch(apiUrl);
     if (!response.ok) {
