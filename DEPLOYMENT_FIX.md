@@ -71,8 +71,8 @@ Settings → **Environment variables** → Add:
 
 | Variable Name | Value | Environment |
 |--------------|-------|-------------|
-| `VITE_ARTIFICIAL_ANALYSIS_API_KEY` | `aa_GdugNjckGYnOcsOJfZYLBVVCEKqnupUy` | Production |
-| `VITE_OPENROUTER_API_KEY` | `sk-or-v1-d63da...` | Production |
+| `VITE_ARTIFICIAL_ANALYSIS_API_KEY` | `your_artificial_analysis_api_key_here` | Production |
+| `VITE_OPENROUTER_API_KEY` | `your_openrouter_api_key_here` | Production |
 | `VITE_AIMLAPI_KEY` | `1daa033e...` | Production |
 | `VITE_HELICONE_API_KEY` | `sk-helicone-...` | Production |
 

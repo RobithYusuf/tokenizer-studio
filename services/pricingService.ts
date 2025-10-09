@@ -70,9 +70,6 @@ export const fetchModels = async (): Promise<Model[]> => {
         // In dev: Vite proxy handles it
         // In production: Cloudflare Pages Functions handle it
         const apiUrl = '/api/models';
-
-        console.log('🔍 [DEBUG] Fetching models from:', apiUrl);
-
         const response = await fetch(apiUrl);
 
         if (!response.ok) {
@@ -131,9 +128,6 @@ export const getUsdToIdrRate = async (): Promise<FxRate> => {
     // In dev: Vite proxy handles it
     // In production: Cloudflare Pages Functions handle it
     const apiUrl = '/api/exchange';
-
-    console.log('🔍 [DEBUG] Fetching exchange rate from:', apiUrl);
-
     const response = await fetch(apiUrl);
     if (!response.ok) {
         throw new Error(`Failed to fetch exchange rate. Status: ${response.status}`);

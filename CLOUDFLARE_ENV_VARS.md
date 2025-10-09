@@ -29,10 +29,10 @@ Klik **"Add variable"** untuk SETIAP variable dengan prefix **VITE_**:
 
 | Variable Name | Value |
 |--------------|-------|
-| `VITE_ARTIFICIAL_ANALYSIS_API_KEY` | `aa_GdugNjckGYnOcsOJfZYLBVVCEKqnupUy` |
-| `VITE_OPENROUTER_API_KEY` | `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` |
-| `VITE_AIMLAPI_KEY` | `1daa033e7d7547dfa42a2925c59e4dda` |
-| `VITE_HELICONE_API_KEY` | `sk-helicone-cxkojui-nqaubti-xfhpjjy-fdafrsa` |
+| `VITE_ARTIFICIAL_ANALYSIS_API_KEY` | `your_artificial_analysis_api_key_here` |
+| `VITE_OPENROUTER_API_KEY` | `your_openrouter_api_key_here` |
+| `VITE_AIMLAPI_KEY` | `your_aimlapi_key_here` |
+| `VITE_HELICONE_API_KEY` | `your_helicone_api_key_here` |
 
 **CATATAN:** Prefix `VITE_` **WAJIB** agar Vite expose variables ke client-side!
 

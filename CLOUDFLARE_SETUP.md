@@ -52,10 +52,10 @@ git push origin main
 
    | Variable Name | Value |
    |--------------|-------|
-   | `ARTIFICIAL_ANALYSIS_API_KEY` | `aa_GdugNjckGYnOcsOJfZYLBVVCEKqnupUy` |
-   | `OPENROUTER_API_KEY` | `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` |
-   | `AIMLAPI_KEY` | `1daa033e7d7547dfa42a2925c59e4dda` |
-   | `HELICONE_API_KEY` | `sk-helicone-cxkojui-nqaubti-xfhpjjy-fdafrsa` |
+   | `ARTIFICIAL_ANALYSIS_API_KEY` | `your_artificial_analysis_api_key_here` |
+   | `OPENROUTER_API_KEY` | `your_openrouter_api_key_here` |
+   | `AIMLAPI_KEY` | `your_aimlapi_key_here` |
+   | `HELICONE_API_KEY` | `your_helicone_api_key_here` |
 
 6. **Deploy**
    - Klik **"Save and Deploy"**
