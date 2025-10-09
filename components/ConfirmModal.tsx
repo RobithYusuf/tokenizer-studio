@@ -57,7 +57,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
@@ -65,7 +65,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-md transform overflow-hidden rounded-2xl bg-white shadow-2xl transition-all">
+      <div className="relative w-full max-w-md transform overflow-hidden rounded-2xl bg-white/95 backdrop-blur-md shadow-2xl transition-all">
         {/* Icon */}
         <div className="flex justify-center pt-8">
           <div className={`flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 ${iconColors[type]}`}>

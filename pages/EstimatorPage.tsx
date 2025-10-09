@@ -166,8 +166,8 @@ const EstimatorPage: React.FC = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <section className="grid gap-4 md:grid-cols-2">
-        <Card>
+      <section className="grid gap-4 md:grid-cols-2 relative z-[60]">
+        <Card className="overflow-visible">
           <Dropdown
             label="Provider"
             value={selectedProvider}
@@ -177,7 +177,7 @@ const EstimatorPage: React.FC = () => {
             placeholder="Select a provider"
           />
         </Card>
-        <Card>
+        <Card className="overflow-visible">
           <Dropdown
             label="Model"
             value={selectedModelId}

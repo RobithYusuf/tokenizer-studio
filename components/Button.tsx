@@ -9,8 +9,8 @@ const Button: React.FC<ButtonProps> = ({ children, className = '', variant = 'pr
 
   const variantClasses: Record<NonNullable<ButtonProps['variant']>, string> = {
     primary: 'bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700',
-    secondary: 'border-2 border-blue-400 bg-white text-blue-700 hover:bg-blue-50',
-    ghost: 'text-blue-700 hover:bg-blue-100',
+    secondary: 'border-2 border-blue-400 bg-white/80 backdrop-blur-sm text-blue-700 hover:bg-blue-50',
+    ghost: 'text-blue-700 hover:bg-blue-100/80',
   };
 
   return (

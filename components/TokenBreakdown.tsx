@@ -116,19 +116,19 @@ const TokenBreakdown: React.FC<TokenBreakdownProps> = ({ text }) => {
     <div className="space-y-6">
       {stats && (
         <div className="grid grid-cols-2 gap-2 sm:gap-3 text-xs lg:grid-cols-4 lg:text-sm">
-          <div className="rounded-lg border-2 border-blue-200 bg-white px-2 py-2 sm:px-3 shadow-md">
+          <div className="rounded-lg border-2 border-blue-200 bg-white/80 backdrop-blur-sm px-2 py-2 sm:px-3 shadow-md">
             <div className="text-blue-700 text-xs">Total tokens</div>
             <div className="text-base sm:text-lg font-semibold text-blue-900">{stats.totalTokens}</div>
           </div>
-          <div className="rounded-lg border-2 border-blue-200 bg-white px-2 py-2 sm:px-3 shadow-md">
+          <div className="rounded-lg border-2 border-blue-200 bg-white/80 backdrop-blur-sm px-2 py-2 sm:px-3 shadow-md">
             <div className="text-blue-700 text-xs">Total characters</div>
             <div className="text-base sm:text-lg font-semibold text-blue-900">{stats.totalChars}</div>
           </div>
-          <div className="rounded-lg border-2 border-blue-200 bg-white px-2 py-2 sm:px-3 shadow-md">
+          <div className="rounded-lg border-2 border-blue-200 bg-white/80 backdrop-blur-sm px-2 py-2 sm:px-3 shadow-md">
             <div className="text-blue-700 text-xs">Avg chars/token</div>
             <div className="text-base sm:text-lg font-semibold text-blue-900">{stats.avgCharsPerToken}</div>
           </div>
-          <div className="rounded-lg border-2 border-blue-200 bg-white px-2 py-2 sm:px-3 shadow-md">
+          <div className="rounded-lg border-2 border-blue-200 bg-white/80 backdrop-blur-sm px-2 py-2 sm:px-3 shadow-md">
             <div className="text-blue-700 text-xs">Efficient %</div>
             <div className="text-base sm:text-lg font-semibold text-blue-900">
               {((stats.efficient / stats.totalTokens) * 100).toFixed(0)}%
@@ -167,7 +167,7 @@ const TokenBreakdown: React.FC<TokenBreakdownProps> = ({ text }) => {
         </label>
       </div>
 
-      <div className="max-h-72 overflow-y-auto rounded-lg border-2 border-blue-200 bg-white p-3 sm:p-4 shadow-inner">
+      <div className="max-h-72 overflow-y-auto rounded-lg border-2 border-blue-200 bg-white/80 backdrop-blur-sm p-3 sm:p-4 shadow-inner">
         <div className="flex flex-wrap gap-y-1 leading-relaxed text-sm sm:text-base">
           {tokenBreakdown.map((item, idx) => {
             // Skip whitespace tokens if showWhitespace is false

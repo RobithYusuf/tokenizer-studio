@@ -32,7 +32,7 @@ const ViewLogModal: React.FC<ViewLogModalProps> = ({ isOpen, log, onClose }) => 
   if (!isOpen || !log) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
@@ -40,7 +40,7 @@ const ViewLogModal: React.FC<ViewLogModalProps> = ({ isOpen, log, onClose }) => 
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white shadow-2xl transition-all max-h-[90vh] flex flex-col">
+      <div className="relative w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white/95 backdrop-blur-md shadow-2xl transition-all max-h-[90vh] flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between border-b-2 border-blue-200 bg-blue-50 px-6 py-4">
           <div>

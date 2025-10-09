@@ -197,7 +197,7 @@ const DashboardPage: React.FC = () => {
                 </thead>
                 <tbody className="divide-y divide-blue-200 bg-white">
                   {usageLogs.slice(0, 15).map((log) => (
-                    <tr key={log.id} className="hover:bg-blue-50 transition-colors">
+                    <tr key={log.id} className="hover:bg-blue-50 transition-colors cursor-pointer" onClick={() => handleViewLog(log)}>
                       <td className="px-6 py-4 whitespace-nowrap text-xs text-blue-700">{new Date(log.timestamp).toLocaleString()}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-900">{getProviderName(log.provider)}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-900">{log.model}</td>

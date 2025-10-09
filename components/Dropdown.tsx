@@ -71,7 +71,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           type="button"
           onClick={() => !disabled && setIsOpen(!isOpen)}
           disabled={disabled}
-          className={`flex w-full items-center justify-between rounded-lg border-2 border-blue-300 bg-white px-4 py-2.5 text-left text-sm text-blue-900 shadow-sm transition focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 hover:border-blue-400 ${
+          className={`flex w-full items-center justify-between rounded-lg border-2 border-blue-300 bg-white/80 backdrop-blur-sm px-4 py-2.5 text-left text-sm text-blue-900 shadow-sm transition focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 hover:border-blue-400 ${
             disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
           }`}
         >
@@ -91,7 +91,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         </button>
 
         {isOpen && !disabled && (
-          <div className="absolute z-50 mt-2 w-full rounded-lg border-2 border-blue-300 bg-white shadow-lg">
+          <div className="absolute z-[100] mt-2 w-full rounded-lg border-2 border-blue-300 bg-white/95 backdrop-blur-md shadow-lg">
             <ul className="max-h-60 overflow-y-auto py-1">
               {options.map((option) => (
                 <li key={option.value}>

@@ -1,55 +1,64 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
-  :root {
-    /* Fresh Blue color palette - bright and cheerful */
-    --blue-50: 214 100% 97%;
-    --blue-100: 214 95% 93%;
-    --blue-200: 213 97% 87%;
-    --blue-300: 212 96% 78%;
-    --blue-400: 213 94% 68%;
-    --blue-500: 217 91% 60%;
-    --blue-600: 221 83% 53%;
-    --blue-700: 224 76% 48%;
-    --blue-800: 226 71% 40%;
-    --blue-900: 224 64% 33%;
+@theme {
+  /* Fresh Blue color palette - bright and cheerful */
+  --color-blue-50: hsl(214 100% 97%);
+  --color-blue-100: hsl(214 95% 93%);
+  --color-blue-200: hsl(213 97% 87%);
+  --color-blue-300: hsl(212 96% 78%);
+  --color-blue-400: hsl(213 94% 68%);
+  --color-blue-500: hsl(217 91% 60%);
+  --color-blue-600: hsl(221 83% 53%);
+  --color-blue-700: hsl(224 76% 48%);
+  --color-blue-800: hsl(226 71% 40%);
+  --color-blue-900: hsl(224 64% 33%);
+
+  --font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, hsl(214 100% 97%) 0%, hsl(214 95% 93%) 50%, hsl(213 97% 87%) 100%);
+  min-height: 100vh;
+}
+
+code {
+  font-family: 'Space Grotesk', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+/* Global cursor pointer for interactive elements */
+button,
+a,
+[role="button"],
+[onclick],
+.cursor-pointer {
+  cursor: pointer;
+}
+
+button:disabled,
+a:disabled,
+[disabled] {
+  cursor: not-allowed;
+}
+
+/* Ensure dropdowns can overflow from parent containers */
+.overflow-visible {
+  overflow: visible !important;
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
   }
-
-  * {
-    @apply border-border;
-  }
-
-  body {
-    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-                 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-                 'Droid Sans', 'Helvetica Neue', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 50%, #BFDBFE 100%);
-    min-height: 100vh;
-  }
-
-  code {
-    font-family: 'Space Grotesk', source-code-pro, Menlo, Monaco, Consolas,
-                 'Courier New', monospace;
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
-@layer utilities {
-  @keyframes slide-up {
-    from {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
-  .animate-slide-up {
-    animation: slide-up 0.3s ease-out;
-  }
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
 }

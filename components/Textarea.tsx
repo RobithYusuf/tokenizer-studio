@@ -14,7 +14,7 @@ const Textarea: React.FC<TextareaProps> = ({ label, className = '', ...props }) 
       )}
       <textarea
         {...props}
-        className={`min-h-[180px] w-full rounded-lg border-2 border-blue-300 bg-white px-4 py-2.5 text-sm text-blue-900 shadow-sm transition focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 hover:border-blue-400 ${className}`}
+        className={`min-h-[180px] w-full rounded-lg border-2 border-blue-300 bg-white/80 backdrop-blur-sm px-4 py-2.5 text-sm text-blue-900 shadow-sm transition focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 hover:border-blue-400 ${className}`}
       />
     </div>
   );
