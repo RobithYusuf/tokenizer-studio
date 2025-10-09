@@ -66,30 +66,14 @@ export const fetchModels = async (): Promise<Model[]> => {
     }
 
     try {
-        // Use Vite proxy in development, direct API in production
-        const isDev = import.meta.env.DEV;
-        const apiUrl = isDev
-            ? '/api/models'
-            : 'https://artificialanalysis.ai/api/v2/data/llms/models';
+        // Use relative URL for both dev and production
+        // In dev: Vite proxy handles it
+        // In production: Cloudflare Pages Functions handle it
+        const apiUrl = '/api/models';
 
-        const headers: HeadersInit = {};
-        if (!isDev) {
-            // Add API key for production
-            const apiKey = import.meta.env.VITE_ARTIFICIAL_ANALYSIS_API_KEY || '';
-            headers['x-api-key'] = apiKey;
+        console.log('🔍 [DEBUG] Fetching models from:', apiUrl);
 
-            // Debug logging
-            console.log('🔍 [DEBUG] Production API Call:', {
-                isDev,
-                apiUrl,
-                hasApiKey: !!apiKey,
-                apiKeyLength: apiKey.length,
-                apiKeyPrefix: apiKey.substring(0, 5) + '...',
-                headers
-            });
-        }
-
-        const response = await fetch(apiUrl, { headers });
+        const response = await fetch(apiUrl);
 
         if (!response.ok) {
             throw new Error(`Failed to fetch models. Status: ${response.status}`);
@@ -143,17 +127,12 @@ export const getUsdToIdrRate = async (): Promise<FxRate> => {
   }
 
   try {
-    // Use Vite proxy in development, direct API in production
-    const isDev = import.meta.env.DEV;
-    const apiUrl = isDev
-        ? '/api/exchange'
-        : 'https://api.exchangerate-api.com/v4/latest/USD';
+    // Use relative URL for both dev and production
+    // In dev: Vite proxy handles it
+    // In production: Cloudflare Pages Functions handle it
+    const apiUrl = '/api/exchange';
 
-    // Debug logging
-    console.log('🔍 [DEBUG] FX Rate API Call:', {
-        isDev,
-        apiUrl
-    });
+    console.log('🔍 [DEBUG] Fetching exchange rate from:', apiUrl);
 
     const response = await fetch(apiUrl);
     if (!response.ok) {
