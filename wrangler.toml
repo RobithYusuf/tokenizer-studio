@@ -1,0 +1,11 @@
+# Cloudflare Pages Configuration
+name = "tokenizer-studio"
+compatibility_date = "2024-01-01"
+
+# Pages configuration
+pages_build_output_dir = "dist"
+
+# Environment variables (for development only)
+# Production variables should be set in Cloudflare Dashboard
+[env.production.vars]
+# Add your environment variables here if needed
