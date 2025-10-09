@@ -56,6 +56,7 @@ export default defineConfig(({ mode }) => {
         'process.env.AIMLAPI_KEY': JSON.stringify(env.AIMLAPI_KEY || ''),
         'process.env.HELICONE_API_KEY': JSON.stringify(env.HELICONE_API_KEY || '')
       },
+      envPrefix: 'VITE_',
       resolve: {
         alias: {
           '@': path.resolve(__dirname, '.'),

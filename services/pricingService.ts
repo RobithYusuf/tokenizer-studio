@@ -66,8 +66,19 @@ export const fetchModels = async (): Promise<Model[]> => {
     }
 
     try {
-        // Use Vite proxy to bypass CORS
-        const response = await fetch('/api/models');
+        // Use Vite proxy in development, direct API in production
+        const isDev = import.meta.env.DEV;
+        const apiUrl = isDev
+            ? '/api/models'
+            : 'https://artificialanalysis.ai/api/v2/data/llms/models';
+
+        const headers: HeadersInit = {};
+        if (!isDev) {
+            // Add API key for production
+            headers['x-api-key'] = import.meta.env.VITE_ARTIFICIAL_ANALYSIS_API_KEY || '';
+        }
+
+        const response = await fetch(apiUrl, { headers });
 
         if (!response.ok) {
             throw new Error(`Failed to fetch models. Status: ${response.status}`);
@@ -121,8 +132,13 @@ export const getUsdToIdrRate = async (): Promise<FxRate> => {
   }
 
   try {
-    // Use Vite proxy to bypass CORS
-    const response = await fetch('/api/exchange');
+    // Use Vite proxy in development, direct API in production
+    const isDev = import.meta.env.DEV;
+    const apiUrl = isDev
+        ? '/api/exchange'
+        : 'https://api.exchangerate-api.com/v4/latest/USD';
+
+    const response = await fetch(apiUrl);
     if (!response.ok) {
         throw new Error(`Failed to fetch exchange rate. Status: ${response.status}`);
     }
