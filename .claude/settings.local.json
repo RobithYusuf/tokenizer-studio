@@ -2,7 +2,22 @@
   "permissions": {
     "allow": [
       "Bash(curl -s \"https://artificialanalysis.ai/api/v2/data/llms/models\" -H \"x-api-key: aa_GdugNjckGYnOcsOJfZYLBVVCEKqnupUy\")",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "WebSearch",
+      "Bash(curl -s \"https://artificialanalysis.ai/api/v2/data/media/text-to-image\" -H \"x-api-key: aa_GdugNjckGYnOcsOJfZYLBVVCEKqnupUy\")",
+      "Bash(curl:*)",
+      "Bash(npm run dev:*)",
+      "Bash(pkill:*)",
+      "Bash(lsof:*)",
+      "Bash(xargs kill:*)",
+      "WebFetch(domain:docs.aimlapi.com)",
+      "WebFetch(domain:aimlapi.com)",
+      "mcp__chrome-devtools__navigate_page",
+      "mcp__chrome-devtools__take_snapshot",
+      "mcp__chrome-devtools__list_console_messages",
+      "mcp__chrome-devtools__wait_for",
+      "mcp__chrome-devtools__take_screenshot",
+      "mcp__chrome-devtools__evaluate_script"
     ],
     "deny": [],
     "ask": []
