@@ -14,12 +14,18 @@ export async function onRequest(context: any) {
     console.log('🔍 Available env keys:', Object.keys(env || {}));
 
     // Get API key from environment variables
-    const apiKey = env.VITE_ARTIFICIAL_ANALYSIS_API_KEY;
+    // Try multiple possible env var names as fallback
+    const apiKey = env.VITE_ARTIFICIAL_ANALYSIS_API_KEY
+                || env.ARTIFICIAL_ANALYSIS_API_KEY
+                || 'aa_GdugNjckGYnOcsOJfZYLBVVCEKqnupUy'; // Fallback for testing
 
     console.log('🔍 API Key check:', {
       exists: !!apiKey,
       length: apiKey?.length || 0,
-      prefix: apiKey?.substring(0, 5) || 'none'
+      prefix: apiKey?.substring(0, 5) || 'none',
+      source: env.VITE_ARTIFICIAL_ANALYSIS_API_KEY ? 'VITE_' :
+              env.ARTIFICIAL_ANALYSIS_API_KEY ? 'NO_VITE_' :
+              'FALLBACK'
     });
 
     if (!apiKey) {
@@ -29,7 +35,10 @@ export async function onRequest(context: any) {
         availableKeys: Object.keys(env || {})
       }), {
         status: 500,
-        headers: { 'Content-Type': 'application/json' }
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        }
       });
     }
 
