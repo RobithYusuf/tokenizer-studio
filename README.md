@@ -205,25 +205,28 @@ ai-token-cost-estimator/
 └── App.tsx               # Main app component
 ```
 
-## 🚀 Cara Menggunakan
+## 🚀 Quick Start
 
-### 1. Instalasi Dependencies
+### 1. Development
 
 ```bash
+# Install dependencies
 npm install
-```
 
-### 2. Jalankan Development Server
-
-```bash
+# Run development server
 npm run dev
 ```
 
-### 3. Build untuk Production
+### 2. Production Deployment
 
-```bash
-npm run build
-```
+See complete deployment guide: **[docs/deployment/README.md](./docs/deployment/README.md)**
+
+**Quick links:**
+- [Cloudflare Pages Setup](./docs/deployment/CLOUDFLARE_SETUP.md)
+- [Environment Variables](./docs/deployment/CLOUDFLARE_ENV_VARS.md)
+- [CORS Fix & Functions](./docs/deployment/CORS_FIX.md)
+
+**Live Demo:** https://estimator-token.pages.dev
 
 ## 💡 Use Cases & Skenario
 
