@@ -10,12 +10,24 @@ export async function onRequest(context: any) {
   }
 
   try {
+    // Debug: Log all available env keys
+    console.log('🔍 Available env keys:', Object.keys(env || {}));
+
     // Get API key from environment variables
     const apiKey = env.VITE_ARTIFICIAL_ANALYSIS_API_KEY;
 
+    console.log('🔍 API Key check:', {
+      exists: !!apiKey,
+      length: apiKey?.length || 0,
+      prefix: apiKey?.substring(0, 5) || 'none'
+    });
+
     if (!apiKey) {
       console.error('❌ API Key not found in environment');
-      return new Response(JSON.stringify({ error: 'API key not configured' }), {
+      return new Response(JSON.stringify({
+        error: 'API key not configured',
+        availableKeys: Object.keys(env || {})
+      }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' }
       });
@@ -23,17 +35,33 @@ export async function onRequest(context: any) {
 
     // Fetch from Artificial Analysis API
     const apiUrl = 'https://artificialanalysis.ai/api/v2/data/llms/models';
+    console.log('🔍 Fetching from:', apiUrl);
+
     const response = await fetch(apiUrl, {
       headers: {
         'x-api-key': apiKey
       }
     });
 
+    console.log('🔍 External API response:', {
+      status: response.status,
+      ok: response.ok,
+      statusText: response.statusText
+    });
+
     if (!response.ok) {
-      console.error('❌ Artificial Analysis API error:', response.status);
+      const errorText = await response.text();
+      console.error('❌ Artificial Analysis API error:', {
+        status: response.status,
+        statusText: response.statusText,
+        body: errorText.substring(0, 200)
+      });
+
       return new Response(JSON.stringify({
-        error: 'Failed to fetch models',
-        status: response.status
+        error: 'Failed to fetch models from external API',
+        status: response.status,
+        statusText: response.statusText,
+        details: errorText.substring(0, 200)
       }), {
         status: response.status,
         headers: { 'Content-Type': 'application/json' }
@@ -41,6 +69,7 @@ export async function onRequest(context: any) {
     }
 
     const data = await response.json();
+    console.log('✅ Successfully fetched models, count:', data?.data?.length || 'unknown');
 
     // Return with CORS headers
     return new Response(JSON.stringify(data), {
