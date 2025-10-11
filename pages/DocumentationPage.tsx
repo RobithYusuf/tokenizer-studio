@@ -39,13 +39,14 @@ const DocumentationPage: React.FC = () => {
           <div className="rounded-lg border-2 border-purple-200 bg-purple-50 p-4">
             <h3 className="font-semibold text-purple-900">2. Volume Simulator (<code>/simulator</code>)</h3>
             <ul className="mt-2 space-y-1 text-sm text-purple-800">
-              <li>✅ <strong>Budget-First Mode:</strong> Hitung volume maksimal dari budget</li>
-              <li>✅ <strong>12 Use Case Templates:</strong> Text (6), Image (2), TTS (2), Video (2)</li>
-              <li>✅ Dynamic model selection untuk text-based templates</li>
+              <li>✅ <strong>2 Calculation Modes:</strong> Budget-First (max volume from budget) & Volume-First (cost from API calls)</li>
+              <li>✅ <strong>Modality-First Approach:</strong> Pilih AI capability (text, image, audio, video, multimodal)</li>
+              <li>✅ <strong>Complexity Selector:</strong> Light, Medium, Heavy dengan token/parameter estimations</li>
+              <li>✅ <strong>Dynamic Model Selection:</strong> 1000+ models dari 4 data sources (AA, OpenRouter, AIML API, Helicone)</li>
               <li>✅ Growth rate projections (0-50% monthly growth)</li>
               <li>✅ Multi-month simulation (1-12 bulan)</li>
               <li>✅ Visual charts dan monthly breakdown</li>
-              <li>✅ Data source: <strong>OpenRouter API</strong> (324+ multimodal models)</li>
+              <li>✅ Real-time cost calculations dengan USD & IDR</li>
             </ul>
           </div>
 
@@ -179,233 +180,313 @@ const DocumentationPage: React.FC = () => {
 
       {/* FAQ */}
       <Card>
-        <h2 className="text-2xl font-semibold text-blue-900">❓ Frequently Asked Questions</h2>
+        <div className="mb-6">
+          <h2 className="text-3xl font-bold text-blue-900 mb-2">❓ Frequently Asked Questions</h2>
+          <p className="text-sm text-blue-700">Temukan jawaban untuk pertanyaan umum tentang Tokenizer Studio</p>
+        </div>
 
-        <div className="mt-6 space-y-6">
-          <div className="border-b border-blue-200 pb-4">
-            <h3 className="text-lg font-semibold text-blue-900">Apakah token counting 100% akurat?</h3>
-            <p className="mt-2 text-sm text-blue-800 leading-relaxed">
-              Untuk OpenAI: Ya, karena menggunakan tiktoken yang sama dengan API resmi.
-              Untuk provider lain (Anthropic, Google, dll): Sekitar 90-98% akurat karena menggunakan approximation dengan cl100k_base encoding.
-            </p>
-          </div>
-
-          <div className="border-b border-blue-200 pb-4">
-            <h3 className="text-lg font-semibold text-blue-900">Apakah data saya aman?</h3>
-            <p className="mt-2 text-sm text-blue-800 leading-relaxed">
-              Ya! Semua perhitungan token dilakukan di browser Anda (client-side). Text input tidak dikirim ke server eksternal.
-              Usage history disimpan di localStorage browser Anda saja.
-            </p>
-          </div>
-
-          <div className="border-b border-blue-200 pb-4">
-            <h3 className="text-lg font-semibold text-blue-900">Berapa lama pricing data di-update?</h3>
-            <p className="mt-2 text-sm text-blue-800 leading-relaxed">
-              Semua pricing API: Cache 1 jam (auto-refresh setiap jam)<br/>
-              Exchange rate USD→IDR: 10-15 menit
-            </p>
-          </div>
-
-          <div className="border-b border-blue-200 pb-4">
-            <h3 className="text-lg font-semibold text-blue-900">Apa perbedaan 4 pricing sources?</h3>
-            <div className="mt-2 text-sm text-blue-800 leading-relaxed space-y-2">
-              <div>
-                <strong className="text-blue-900">📊 Artificial Analysis:</strong><br/>
-                ~50 mainstream LLMs dengan performance benchmarks (Quality Index, Speed, Context Window).
-                Best untuk: Membandingkan quality vs pricing.
+        <div className="mt-6 space-y-4">
+          {/* FAQ 1 */}
+          <div className="group rounded-xl border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-white p-5 transition-all hover:border-blue-400 hover:shadow-md">
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 rounded-lg bg-blue-500 p-2 text-white">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
               </div>
-              <div>
-                <strong className="text-blue-900">🌐 OpenRouter:</strong><br/>
-                324+ multimodal models dari 60+ providers. 0% markup (pass-through pricing).
-                Best untuk: Comprehensive coverage tanpa markup, free models.
-              </div>
-              <div>
-                <strong className="text-blue-900">🎨 AIML API:</strong><br/>
-                350+ models dengan fokus multimodal (48 Image, 63 Video, 64 Audio). +5% markup.
-                Best untuk: Advanced generation (Sora 2, Flux Pro, Imagen 4.0, Kling).
-              </div>
-              <div>
-                <strong className="text-blue-900">🗄️ Helicone:</strong><br/>
-                1000+ models dari open-source database. Community-verified pricing.
-                Best untuk: Transparansi maksimal & developer yang prefer open-source.
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-blue-900 mb-2">Apakah token counting 100% akurat?</h3>
+                <p className="text-sm text-blue-800 leading-relaxed">
+                  <strong className="text-blue-900">Untuk OpenAI:</strong> Ya, karena menggunakan tiktoken yang sama dengan API resmi.<br/>
+                  <strong className="text-blue-900">Untuk provider lain</strong> (Anthropic, Google, dll): Sekitar 90-98% akurat karena menggunakan approximation dengan cl100k_base encoding.
+                </p>
               </div>
             </div>
           </div>
 
-          <div className="border-b border-blue-200 pb-4">
-            <h3 className="text-lg font-semibold text-blue-900">Bagaimana cara mengestimasi output tokens?</h3>
-            <p className="mt-2 text-sm text-blue-800 leading-relaxed">
-              <strong>Panduan estimasi:</strong><br/>
-              • Jawaban singkat (1 kalimat): ~50-100 tokens<br/>
-              • Response medium (1 paragraf): ~200-500 tokens<br/>
-              • Penjelasan panjang (beberapa paragraf): ~1,000-2,000 tokens<br/>
-              • Artikel detail/code lengkap: ~3,000-5,000+ tokens
-            </p>
-          </div>
-
-          <div className="border-b border-blue-200 pb-4">
-            <h3 className="text-lg font-semibold text-blue-900">Apa itu "Match Type" di Helicone?</h3>
-            <div className="mt-2 text-sm text-blue-800 leading-relaxed">
-              <p className="mb-2">Match Type menunjukkan cara Helicone mencocokkan pricing dengan nama model:</p>
-              <ul className="ml-4 space-y-1 list-disc">
-                <li><strong className="text-green-700">Exact:</strong> Pricing untuk model spesifik ini saja (e.g., "gpt-4o")</li>
-                <li><strong className="text-blue-700">Series:</strong> Pricing berlaku untuk semua varian (e.g., "gpt-4" covers "gpt-4-turbo", "gpt-4-vision")</li>
-                <li><strong className="text-purple-700">Pattern:</strong> Pricing untuk model dengan nama mirip (flexible matching)</li>
-              </ul>
-              <p className="mt-2 text-xs text-blue-700">
-                <em>Note: Ini adalah metadata teknis untuk sistem Helicone, bukan indikator kualitas model.</em>
-              </p>
+          {/* FAQ 2 */}
+          <div className="group rounded-xl border-2 border-green-200 bg-gradient-to-br from-green-50 to-white p-5 transition-all hover:border-green-400 hover:shadow-md">
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 rounded-lg bg-green-500 p-2 text-white">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-green-900 mb-2">Apakah data saya aman?</h3>
+                <p className="text-sm text-green-800 leading-relaxed">
+                  Ya! Semua perhitungan token dilakukan di <strong className="text-green-900">browser Anda (client-side)</strong>. Text input tidak dikirim ke server eksternal.
+                  Usage history disimpan di localStorage browser Anda saja.
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="border-b border-blue-200 pb-4">
-            <h3 className="text-lg font-semibold text-blue-900">Kenapa AIML API ada markup +5%?</h3>
-            <p className="mt-2 text-sm text-blue-800 leading-relaxed">
-              AIML API mengenakan markup +5% vs official pricing karena menyediakan:<br/>
-              • Unified API untuk 350+ models dari berbagai providers<br/>
-              • Advanced models (Sora 2, Flux Pro, Imagen 4.0) yang tidak tersedia di OpenRouter<br/>
-              • Simplified billing & infrastructure management<br/><br/>
-              Markup ini <strong>transparently disclosed</strong> dengan orange badge di UI.
-              Untuk harga tanpa markup, gunakan OpenRouter tab.
-            </p>
+          {/* FAQ 3 */}
+          <div className="group rounded-xl border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-white p-5 transition-all hover:border-purple-400 hover:shadow-md">
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 rounded-lg bg-purple-500 p-2 text-white">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-purple-900 mb-2">Berapa lama pricing data di-update?</h3>
+                <div className="space-y-1 text-sm text-purple-800">
+                  <p><span className="inline-block w-32 font-semibold">Pricing API:</span> Cache 1 jam (auto-refresh)</p>
+                  <p><span className="inline-block w-32 font-semibold">Exchange rate:</span> 10-15 menit</p>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="border-b border-blue-200 pb-4">
-            <h3 className="text-lg font-semibold text-blue-900">Apa itu "Blended Pricing" dan bagaimana Tokenizer Studio mengatasinya?</h3>
-            <div className="mt-2 text-sm text-blue-800 leading-relaxed">
-              <p className="mb-3">
-                <strong>Blended Pricing</strong> adalah strategi pricing dari aggregator API (seperti AIML API) yang menyederhanakan harga beberapa variant model menjadi satu harga uniform untuk simplified billing.
-              </p>
-
-              <div className="bg-yellow-50 border-2 border-yellow-200 rounded-lg p-3 mb-3">
-                <p className="font-semibold text-yellow-900 mb-2">Contoh: Google Veo di AIML API</p>
-                <div className="text-xs space-y-1">
-                  <div className="flex justify-between">
-                    <span>AIML API (Blended):</span>
-                    <span className="font-mono font-semibold">$0.788/sec</span>
+          {/* FAQ 4 - Pricing Sources */}
+          <div className="group rounded-xl border-2 border-orange-200 bg-gradient-to-br from-orange-50 to-white p-5 transition-all hover:border-orange-400 hover:shadow-md">
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 rounded-lg bg-orange-500 p-2 text-white">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-orange-900 mb-3">Apa perbedaan 4 pricing sources?</h3>
+                <div className="space-y-3">
+                  <div className="rounded-lg border border-blue-200 bg-white p-3">
+                    <p className="font-bold text-blue-900 mb-1">📊 Artificial Analysis</p>
+                    <p className="text-xs text-blue-800">~50 mainstream LLMs dengan performance benchmarks. Best untuk: Membandingkan quality vs pricing.</p>
                   </div>
-                  <div className="flex justify-between text-gray-600">
-                    <span>• Veo 2, Veo 3, Standard, Fast</span>
-                    <span>sama semua</span>
+                  <div className="rounded-lg border border-cyan-200 bg-white p-3">
+                    <p className="font-bold text-cyan-900 mb-1">🌐 OpenRouter</p>
+                    <p className="text-xs text-cyan-800">324+ multimodal models, 0% markup. Best untuk: Comprehensive coverage tanpa markup.</p>
                   </div>
-                  <div className="border-t border-yellow-300 my-2"></div>
-                  <div className="flex justify-between">
-                    <span>Google Cloud (Official):</span>
-                    <span className="font-mono font-semibold">$0.10-$0.50/sec</span>
+                  <div className="rounded-lg border border-pink-200 bg-white p-3">
+                    <p className="font-bold text-pink-900 mb-1">🎨 AIML API</p>
+                    <p className="text-xs text-pink-800">350+ models, fokus multimodal (+5% markup). Best untuk: Advanced generation (Sora 2, Flux Pro).</p>
                   </div>
-                  <div className="flex justify-between text-gray-600">
-                    <span>• Veo 3 Fast (video only):</span>
-                    <span className="font-mono">$0.10/sec</span>
-                  </div>
-                  <div className="flex justify-between text-gray-600">
-                    <span>• Veo 3 Standard (video+audio):</span>
-                    <span className="font-mono">$0.40/sec</span>
-                  </div>
-                  <div className="flex justify-between text-gray-600">
-                    <span>• Veo 2 Standard:</span>
-                    <span className="font-mono">$0.50/sec</span>
+                  <div className="rounded-lg border border-gray-200 bg-white p-3">
+                    <p className="font-bold text-gray-900 mb-1">🗄️ Helicone</p>
+                    <p className="text-xs text-gray-800">1000+ models dari open-source database. Best untuk: Transparansi maksimal.</p>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-3 mb-3">
-                <p className="font-semibold text-blue-900 mb-2">✨ Solusi Tokenizer Studio: Hybrid Pricing dengan Transparency</p>
-                <ul className="ml-4 space-y-2 list-disc text-xs">
-                  <li>
-                    <strong>Reference Dataset:</strong> Kami maintain database pricing official dari Google Cloud Vertex AI untuk cross-reference
-                  </li>
-                  <li>
-                    <strong>"Blended Pricing" Badge:</strong> Video models dengan blended pricing akan menampilkan badge kuning di PricingPage
-                  </li>
-                  <li>
-                    <strong>Official Price Display:</strong> Badge juga menampilkan harga official dari Google Cloud untuk comparison
-                  </li>
-                  <li>
-                    <strong>Tooltip Information:</strong> Hover badge untuk detail penjelasan tentang pricing difference
-                  </li>
-                </ul>
+          {/* FAQ 5 */}
+          <div className="group rounded-xl border-2 border-cyan-200 bg-gradient-to-br from-cyan-50 to-white p-5 transition-all hover:border-cyan-400 hover:shadow-md">
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 rounded-lg bg-cyan-500 p-2 text-white">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                </svg>
               </div>
-
-              <div className="text-xs bg-gray-50 border border-gray-300 rounded p-2">
-                <p className="font-semibold text-gray-900 mb-1">📌 Rekomendasi Penggunaan:</p>
-                <ul className="ml-4 space-y-1 list-disc text-gray-700">
-                  <li><strong>Gunakan AIML API blended pricing jika:</strong> Anda butuh simplified billing dan tidak peduli varian spesifik</li>
-                  <li><strong>Gunakan Google Cloud official jika:</strong> Anda ingin optimize cost per variant (bisa lebih murah 4-8x untuk Veo 3 Fast)</li>
-                  <li><strong>Lihat badge "Blended Pricing":</strong> Di PricingPage → AIML API tab → Video models untuk transparency</li>
-                </ul>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-cyan-900 mb-2">Bagaimana cara mengestimasi output tokens?</h3>
+                <div className="space-y-2 text-sm text-cyan-800">
+                  <div className="flex items-center gap-2">
+                    <span className="rounded-full bg-cyan-100 px-2 py-0.5 text-xs font-semibold">50-100</span>
+                    <span>Jawaban singkat (1 kalimat)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="rounded-full bg-cyan-200 px-2 py-0.5 text-xs font-semibold">200-500</span>
+                    <span>Response medium (1 paragraf)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="rounded-full bg-cyan-300 px-2 py-0.5 text-xs font-semibold">1K-2K</span>
+                    <span>Penjelasan panjang (beberapa paragraf)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="rounded-full bg-cyan-400 px-2 py-0.5 text-xs font-semibold text-white">3K-5K+</span>
+                    <span>Artikel detail / code lengkap</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold text-blue-900">Apakah perlu API key untuk menggunakan aplikasi ini?</h3>
-            <p className="mt-2 text-sm text-blue-800 leading-relaxed">
-              Tidak! Aplikasi ini hanya untuk estimasi biaya. Anda tidak perlu API key dari provider manapun.
-            </p>
+          {/* FAQ 6 */}
+          <div className="group rounded-xl border-2 border-indigo-200 bg-gradient-to-br from-indigo-50 to-white p-5 transition-all hover:border-indigo-400 hover:shadow-md">
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 rounded-lg bg-indigo-500 p-2 text-white">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-indigo-900 mb-2">Apa itu "Match Type" di Helicone?</h3>
+                <p className="text-sm text-indigo-800 mb-2">Match Type menunjukkan cara Helicone mencocokkan pricing dengan nama model:</p>
+                <div className="space-y-2">
+                  <div className="flex items-start gap-2 rounded-lg bg-green-50 p-2 text-xs">
+                    <span className="font-bold text-green-700">Exact:</span>
+                    <span className="text-green-700">Pricing untuk model spesifik (e.g., "gpt-4o")</span>
+                  </div>
+                  <div className="flex items-start gap-2 rounded-lg bg-blue-50 p-2 text-xs">
+                    <span className="font-bold text-blue-700">Series:</span>
+                    <span className="text-blue-700">Berlaku untuk semua varian (e.g., "gpt-4" → "gpt-4-turbo")</span>
+                  </div>
+                  <div className="flex items-start gap-2 rounded-lg bg-purple-50 p-2 text-xs">
+                    <span className="font-bold text-purple-700">Pattern:</span>
+                    <span className="text-purple-700">Model dengan nama mirip (flexible matching)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* FAQ 7 */}
+          <div className="group rounded-xl border-2 border-amber-200 bg-gradient-to-br from-amber-50 to-white p-5 transition-all hover:border-amber-400 hover:shadow-md">
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 rounded-lg bg-amber-500 p-2 text-white">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-amber-900 mb-2">Kenapa AIML API ada markup +5%?</h3>
+                <p className="text-sm text-amber-800 mb-2">AIML API mengenakan markup +5% karena menyediakan:</p>
+                <ul className="space-y-1 text-sm text-amber-700">
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-500">✓</span>
+                    <span>Unified API untuk 350+ models dari berbagai providers</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-500">✓</span>
+                    <span>Advanced models (Sora 2, Flux Pro, Imagen 4.0)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-500">✓</span>
+                    <span>Simplified billing & infrastructure management</span>
+                  </li>
+                </ul>
+                <p className="mt-2 text-xs text-amber-700">
+                  <strong>Note:</strong> Markup transparently disclosed dengan orange badge. Untuk harga tanpa markup, gunakan OpenRouter tab.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FAQ 8 - Blended Pricing (Collapsible) */}
+          <div className="group rounded-xl border-2 border-yellow-200 bg-gradient-to-br from-yellow-50 to-white p-5 transition-all hover:border-yellow-400 hover:shadow-md">
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 rounded-lg bg-yellow-500 p-2 text-white">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-yellow-900 mb-2">Apa itu "Blended Pricing"?</h3>
+                <p className="text-sm text-yellow-800 mb-3">
+                  <strong>Blended Pricing</strong> adalah strategi pricing dari aggregator API yang menyederhanakan harga beberapa variant model menjadi satu harga uniform untuk simplified billing.
+                </p>
+
+                <div className="bg-yellow-100 border-2 border-yellow-300 rounded-lg p-3 mb-3">
+                  <p className="font-semibold text-yellow-900 mb-2 text-sm">📊 Contoh: Google Veo di AIML API</p>
+                  <div className="space-y-1 text-xs">
+                    <div className="flex justify-between items-center">
+                      <span className="text-yellow-800">AIML API (Blended):</span>
+                      <span className="font-mono font-bold text-yellow-900 bg-yellow-200 px-2 py-0.5 rounded">$0.788/sec</span>
+                    </div>
+                    <p className="text-yellow-700 text-[10px] ml-2">↳ Semua varian sama harga</p>
+                    <div className="border-t border-yellow-300 my-2"></div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-yellow-800">Google Cloud Official:</span>
+                      <span className="font-mono font-bold text-yellow-900">$0.10-$0.50/sec</span>
+                    </div>
+                    <div className="ml-2 space-y-0.5 text-[10px] text-yellow-700">
+                      <p>• Veo 3 Fast: $0.10/sec (4-8x lebih murah!)</p>
+                      <p>• Veo 3 Standard: $0.40/sec</p>
+                      <p>• Veo 2 Standard: $0.50/sec</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="rounded-lg bg-blue-50 border border-blue-200 p-3 text-xs">
+                  <p className="font-semibold text-blue-900 mb-1">💡 Rekomendasi:</p>
+                  <ul className="space-y-1 text-blue-800 ml-3">
+                    <li>• Gunakan AIML API untuk <strong>simplified billing</strong></li>
+                    <li>• Gunakan Google Cloud untuk <strong>cost optimization</strong> (4-8x lebih murah)</li>
+                    <li>• Cek badge "Blended Pricing" di PricingPage untuk transparency</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* FAQ 9 */}
+          <div className="group rounded-xl border-2 border-rose-200 bg-gradient-to-br from-rose-50 to-white p-5 transition-all hover:border-rose-400 hover:shadow-md">
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 rounded-lg bg-rose-500 p-2 text-white">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-rose-900 mb-2">Apakah perlu API key untuk menggunakan aplikasi ini?</h3>
+                <div className="rounded-lg bg-rose-100 border border-rose-300 p-3">
+                  <p className="text-sm text-rose-800 font-semibold">
+                    ❌ Tidak perlu API key!
+                  </p>
+                  <p className="text-xs text-rose-700 mt-1">
+                    Aplikasi ini hanya untuk <strong>estimasi biaya</strong>. Anda tidak perlu API key dari provider manapun.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </Card>
 
-      {/* Use Case Templates */}
+      {/* AI Modalities & Complexity Levels */}
       <Card>
-        <h2 className="text-2xl font-semibold text-blue-900">📦 Use Case Templates (Simulator)</h2>
-        <p className="mt-2 text-sm text-blue-700">Volume Simulator menyediakan 12 pre-configured templates:</p>
+        <h2 className="text-2xl font-semibold text-blue-900">🎯 AI Modalities & Complexity Levels</h2>
+        <p className="mt-2 text-sm text-blue-700">Volume Simulator menggunakan pendekatan Modality-First dengan Complexity Selector:</p>
 
         <div className="mt-4 space-y-4">
           <div className="rounded-lg border-2 border-blue-200 bg-blue-50 p-4">
-            <h3 className="font-semibold text-blue-900">📝 Text-Based (6 templates)</h3>
-            <div className="mt-2 space-y-2 text-sm text-blue-800">
-              <div className="flex justify-between">
-                <span>1. Simple Chatbot</span>
-                <span className="text-xs">400 input / 250 output tokens</span>
+            <h3 className="font-semibold text-blue-900 mb-3">📋 Available Modalities</h3>
+            <div className="grid gap-3 md:grid-cols-2">
+              <div className="text-sm text-blue-800">
+                <strong>Text-to-Text:</strong> LLM conversations, code generation, analysis
               </div>
-              <div className="flex justify-between">
-                <span>2. Advanced Chatbot</span>
-                <span className="text-xs">1500 input / 600 output tokens</span>
+              <div className="text-sm text-blue-800">
+                <strong>Text-to-Image:</strong> Image generation dari text prompts
               </div>
-              <div className="flex justify-between">
-                <span>3. Content Writer</span>
-                <span className="text-xs">300 input / 2000 output tokens</span>
+              <div className="text-sm text-blue-800">
+                <strong>Text-to-Audio:</strong> TTS, music generation, sound effects
               </div>
-              <div className="flex justify-between">
-                <span>4. Code Assistant</span>
-                <span className="text-xs">1200 input / 1000 output tokens</span>
+              <div className="text-sm text-blue-800">
+                <strong>Text-to-Video:</strong> Video generation dari text descriptions
               </div>
-              <div className="flex justify-between">
-                <span>5. Data Analyst</span>
-                <span className="text-xs">2500 input / 800 output tokens</span>
-              </div>
-              <div className="flex justify-between">
-                <span>6. Document Summarizer</span>
-                <span className="text-xs">3000 input / 400 output tokens</span>
+              <div className="text-sm text-blue-800">
+                <strong>Multimodal:</strong> Vision models (image + text → text)
               </div>
             </div>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3">
-            <div className="rounded-lg border-2 border-pink-200 bg-pink-50 p-4">
-              <h3 className="font-semibold text-pink-900">🎨 Image Generation (2)</h3>
-              <div className="mt-2 space-y-1 text-sm text-pink-800">
-                <div>• Standard Quality ($0.04/image)</div>
-                <div>• HD Quality ($0.08/image)</div>
+          <div className="rounded-lg border-2 border-purple-200 bg-purple-50 p-4">
+            <h3 className="font-semibold text-purple-900 mb-3">⚙️ Complexity Levels</h3>
+            <div className="space-y-2 text-sm text-purple-800">
+              <div>
+                <strong>Light:</strong> Simple queries, short responses (e.g., chatbot, quick Q&A)
+              </div>
+              <div>
+                <strong>Medium:</strong> Standard interactions, moderate context (e.g., content writing, code review)
+              </div>
+              <div>
+                <strong>Heavy:</strong> Complex analysis, long context windows (e.g., document processing, advanced code gen)
               </div>
             </div>
+          </div>
 
-            <div className="rounded-lg border-2 border-orange-200 bg-orange-50 p-4">
-              <h3 className="font-semibold text-orange-900">🎙️ Text-to-Speech (2)</h3>
-              <div className="mt-2 space-y-1 text-sm text-orange-800">
-                <div>• Standard ($0.015/1K chars)</div>
-                <div>• HD ($0.03/1K chars)</div>
-              </div>
-            </div>
-
-            <div className="rounded-lg border-2 border-green-200 bg-green-50 p-4">
-              <h3 className="font-semibold text-green-900">🎬 Video Generation (2)</h3>
-              <div className="mt-2 space-y-1 text-sm text-green-800">
-                <div>• Short (5 sec, $0.10/sec)</div>
-                <div>• Medium (20 sec, $0.10/sec)</div>
-              </div>
-            </div>
+          <div className="rounded-lg border-2 border-orange-200 bg-orange-50 p-4">
+            <h3 className="font-semibold text-orange-900 mb-2">💡 How It Works</h3>
+            <ol className="ml-4 space-y-1 list-decimal text-sm text-orange-800">
+              <li>Pilih <strong>AI Modality</strong> (text, image, audio, video, multimodal)</li>
+              <li>Pilih <strong>Model</strong> dari 1000+ models (atau auto-select recommended)</li>
+              <li>Pilih <strong>Complexity Level</strong> (light/medium/heavy) untuk estimate token usage</li>
+              <li>Input <strong>Budget</strong> atau <strong>API Calls per Day</strong></li>
+              <li>Lihat simulasi biaya dengan growth projection</li>
+            </ol>
           </div>
         </div>
       </Card>
@@ -425,7 +506,7 @@ const DocumentationPage: React.FC = () => {
           <div className="rounded-lg border-2 border-green-200 bg-white p-4">
             <h3 className="font-semibold text-green-900">Startup Budget Planning</h3>
             <p className="mt-2 text-sm text-green-800">
-              Gunakan Simulator untuk forecast monthly AI costs dengan berbagai use cases (chatbot, image gen, TTS, video).
+              Gunakan Simulator untuk forecast monthly AI costs. Pilih modality (text/image/audio/video), complexity level, dan lihat proyeksi growth rate untuk 1-12 bulan.
             </p>
           </div>
 

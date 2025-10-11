@@ -14,17 +14,16 @@ Comprehensive web application for calculating and analyzing AI model costs acros
 - Usage log management with localStorage persistence
 
 ### 2. **Volume Simulator** (`/simulator`)
-- **Budget-First Mode**: Calculate maximum volume from budget
-- **Use Case Templates**: Pre-configured scenarios for:
-  - Text (Chatbot, Content Writing, Code Assistant, etc.)
-  - Image Generation (DALL-E 3 standard & HD)
-  - Text-to-Speech (OpenAI TTS standard & HD)
-  - Video Generation (Runway Gen-3)
-- **Data Source**: OpenRouter API (324+ multimodal models)
-- Dynamic model selection for text-based templates
+- **2 Calculation Modes**:
+  - **Budget-First Mode**: Calculate maximum volume from budget
+  - **Volume-First Mode**: Calculate cost from API calls per day
+- **Modality-First Approach**: Select AI capability (text, image, audio, video, multimodal)
+- **Complexity Selector**: Light, Medium, Heavy with token/parameter estimations
+- **Dynamic Model Selection**: 1000+ models from 4 data sources (AA, OpenRouter, AIML API, Helicone)
 - Growth rate projections (0-50% monthly growth)
 - Multi-month simulation (1-12 months)
 - Visual charts and monthly breakdown
+- Real-time cost calculations with USD & IDR
 
 ### 3. **Pricing Page** (`/pricing`)
 - **Dual Data Sources** with tab switcher:
@@ -106,7 +105,8 @@ src/
 │
 ├── constants/
 │   ├── index.ts                # Providers, defaults
-│   └── useCaseTemplates.ts     # Pre-configured scenarios
+│   ├── modalities.ts           # AI modality definitions
+│   └── useCaseTemplates.ts     # (Legacy - kept for reference)
 │
 ├── types/
 │   └── index.ts                # TypeScript interfaces
@@ -214,27 +214,31 @@ GET https://v6.exchangerate-api.com/v6/YOUR_KEY/latest/USD
 - Hover effects with scale (1.05x)
 - Negative margin for word cohesion
 
-## 📊 Use Case Templates
+## 🎯 AI Modalities & Complexity System
 
-### Text-Based (6 templates)
-- Simple Chatbot (400 input / 250 output tokens)
-- Advanced Chatbot (1500/600)
-- Content Writer (300/2000)
-- Code Assistant (1200/1000)
-- Data Analyst (2500/800)
-- Document Summarizer (3000/400)
+The Volume Simulator uses a flexible **Modality-First Approach** with **Complexity Selectors**:
 
-### Image Generation (2 templates)
-- Standard Quality ($0.04/image)
-- HD Quality ($0.08/image)
+### Available Modalities
+1. **Text-to-Text**: LLM conversations, code generation, analysis, content writing
+2. **Text-to-Image**: Image generation from text prompts (DALL-E, Flux, Stable Diffusion, etc.)
+3. **Text-to-Audio**: TTS, music generation, sound effects
+4. **Text-to-Video**: Video generation from text descriptions (Sora, Runway, Veo, etc.)
+5. **Multimodal**: Vision models (image + text → text, like GPT-4V, Claude 3.5, Gemini)
 
-### Text-to-Speech (2 templates)
-- Standard ($0.015 per 1K chars)
-- HD ($0.03 per 1K chars)
+### Complexity Levels
+- **Light**: Simple queries, short responses (e.g., basic Q&A, quick chatbot)
+  - Text: ~400 input / ~250 output tokens
+- **Medium**: Standard interactions, moderate context (e.g., content writing, code review)
+  - Text: ~1,200 input / ~800 output tokens
+- **Heavy**: Complex analysis, long context (e.g., document processing, advanced code generation)
+  - Text: ~3,000 input / ~1,500 output tokens
 
-### Video Generation (2 templates)
-- Short 5sec ($0.10/sec)
-- Medium 20sec ($0.10/sec)
+### How It Works
+1. Select **AI Modality** (what type of AI task)
+2. Choose **Model** from 1000+ options (or let system auto-select)
+3. Pick **Complexity Level** (adjusts token estimates automatically)
+4. Input **Budget** or **API Calls per Day**
+5. View cost simulation with growth projections
 
 ## 🚀 Getting Started
 
@@ -275,9 +279,11 @@ npm run build
 1. Go to `/simulator`
 2. Select "Budget First" mode
 3. Enter your budget (IDR)
-4. Choose use case template
-5. Select AI model (for text templates)
-6. View volume projection
+4. Choose AI modality (text/image/audio/video)
+5. Select model (or use auto-recommendation)
+6. Pick complexity level (light/medium/heavy)
+7. Set growth rate and period
+8. View volume projection with monthly breakdown
 
 ### Compare Pricing
 1. Go to `/pricing`
