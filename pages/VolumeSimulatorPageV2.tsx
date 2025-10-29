@@ -684,6 +684,52 @@ const VolumeSimulatorPageV2: React.FC = () => {
     }));
   }, [volumeResult]);
 
+  // Save budget simulation to dashboard
+  const handleSaveBudget = () => {
+    if (!appContext || !budgetResult || !budgetSelectedModel) return;
+
+    appContext.addUsageLog({
+      provider: 'openai' as any, // Generic provider for simulator
+      model: budgetSelectedModel.name,
+      inputTokens: 0, // Not applicable for simulator
+      outputTokens: 0, // Not applicable for simulator
+      costUSD: budgetResult.monthlyBudgetUSD * periodMonths,
+      costIDR: budgetResult.monthlyBudgetIDR * periodMonths,
+      type: 'simulator-budget',
+      simulatorData: {
+        mode: 'budget',
+        modality: budgetModality,
+        periodMonths: periodMonths,
+        monthlyRequests: budgetResult.estimatedVolumePerMonth,
+        totalRequests: budgetResult.totalVolumeOverPeriod,
+      },
+    });
+    appContext.showToast('Budget simulation saved to dashboard successfully', 'success');
+  };
+
+  // Save volume simulation to dashboard
+  const handleSaveVolume = () => {
+    if (!appContext || !volumeResult || !selectedModel) return;
+
+    appContext.addUsageLog({
+      provider: 'openai' as any, // Generic provider for simulator
+      model: selectedModel.name,
+      inputTokens: 0, // Not applicable for simulator
+      outputTokens: 0, // Not applicable for simulator
+      costUSD: volumeResult.totalCostUSD,
+      costIDR: volumeResult.totalCostIDR,
+      type: 'simulator-volume',
+      simulatorData: {
+        mode: 'volume',
+        modality: selectedModality,
+        periodMonths: volumePeriod,
+        monthlyRequests: volumeResult.monthlyRequests,
+        totalRequests: volumeResult.totalRequests,
+        apiCallsPerDay: apiCallsPerDay,
+      },
+    });
+    appContext.showToast('Volume simulation saved to dashboard successfully', 'success');
+  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -1152,6 +1198,14 @@ const VolumeSimulatorPageV2: React.FC = () => {
                       <p className="text-4xl font-bold mt-2">{budgetResult.totalVolumeOverPeriod.toLocaleString()}</p>
                       <p className="text-lg mt-1 text-green-100">{budgetResult.billingUnit}</p>
                     </div>
+
+                    <Button
+                      variant="primary"
+                      onClick={handleSaveBudget}
+                      className="w-full"
+                    >
+                      💾 Save to Dashboard
+                    </Button>
                   </div>
                 </div>
               </Card>
@@ -1645,6 +1699,14 @@ const VolumeSimulatorPageV2: React.FC = () => {
                     <p className="text-4xl font-bold mt-2">Rp {Math.round(volumeResult.totalCostIDR).toLocaleString('id-ID')}</p>
                     <p className="text-lg mt-1 text-green-100">${Math.round(volumeResult.totalCostUSD).toLocaleString()} USD</p>
                   </div>
+
+                  <Button
+                    variant="primary"
+                    onClick={handleSaveVolume}
+                    className="w-full"
+                  >
+                    💾 Save to Dashboard
+                  </Button>
                 </div>
               </div>
             </Card>

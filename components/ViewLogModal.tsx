@@ -64,8 +64,19 @@ const ViewLogModal: React.FC<ViewLogModalProps> = ({ isOpen, log, onClose }) => 
           {/* Model Info */}
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="rounded-lg border-2 border-blue-200 bg-blue-50 p-4">
-              <p className="text-xs font-medium uppercase tracking-wide text-blue-700">Provider</p>
-              <p className="mt-1 text-lg font-semibold text-blue-900">{log.provider}</p>
+              <p className="text-xs font-medium uppercase tracking-wide text-blue-700">
+                {log.type === 'simulator-budget' || log.type === 'simulator-volume' ? 'Type' : 'Provider'}
+              </p>
+              <p className="mt-1 text-lg font-semibold text-blue-900">
+                {log.type === 'simulator-budget' || log.type === 'simulator-volume' ? (
+                  <span className="inline-flex items-center gap-2">
+                    <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded-full text-sm">Simulator</span>
+                    <span>{log.type === 'simulator-budget' ? 'Budget' : 'Volume'}</span>
+                  </span>
+                ) : (
+                  log.provider
+                )}
+              </p>
             </div>
             <div className="rounded-lg border-2 border-blue-200 bg-blue-50 p-4">
               <p className="text-xs font-medium uppercase tracking-wide text-blue-700">Model</p>
@@ -73,17 +84,38 @@ const ViewLogModal: React.FC<ViewLogModalProps> = ({ isOpen, log, onClose }) => 
             </div>
           </div>
 
-          {/* Tokens Info */}
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-lg border-2 border-green-200 bg-green-50 p-4">
-              <p className="text-xs font-medium uppercase tracking-wide text-green-700">Input Tokens</p>
-              <p className="mt-1 text-2xl font-semibold text-green-900">{log.inputTokens.toLocaleString()}</p>
+          {/* Tokens Info or Simulator Info */}
+          {log.type === 'simulator-budget' || log.type === 'simulator-volume' ? (
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="rounded-lg border-2 border-purple-200 bg-purple-50 p-4">
+                <p className="text-xs font-medium uppercase tracking-wide text-purple-700">Modality</p>
+                <p className="mt-1 text-2xl font-semibold text-purple-900">{log.simulatorData?.modality || 'N/A'}</p>
+              </div>
+              <div className="rounded-lg border-2 border-green-200 bg-green-50 p-4">
+                <p className="text-xs font-medium uppercase tracking-wide text-green-700">Total Requests</p>
+                <p className="mt-1 text-2xl font-semibold text-green-900">{log.simulatorData?.totalRequests?.toLocaleString() || 'N/A'}</p>
+              </div>
+              <div className="rounded-lg border-2 border-blue-200 bg-blue-50 p-4">
+                <p className="text-xs font-medium uppercase tracking-wide text-blue-700">Period</p>
+                <p className="mt-1 text-2xl font-semibold text-blue-900">{log.simulatorData?.periodMonths || 'N/A'} months</p>
+              </div>
+              <div className="rounded-lg border-2 border-orange-200 bg-orange-50 p-4">
+                <p className="text-xs font-medium uppercase tracking-wide text-orange-700">Monthly Requests</p>
+                <p className="mt-1 text-2xl font-semibold text-orange-900">{log.simulatorData?.monthlyRequests?.toLocaleString() || 'N/A'}</p>
+              </div>
             </div>
-            <div className="rounded-lg border-2 border-purple-200 bg-purple-50 p-4">
-              <p className="text-xs font-medium uppercase tracking-wide text-purple-700">Output Tokens</p>
-              <p className="mt-1 text-2xl font-semibold text-purple-900">{log.outputTokens.toLocaleString()}</p>
+          ) : (
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="rounded-lg border-2 border-green-200 bg-green-50 p-4">
+                <p className="text-xs font-medium uppercase tracking-wide text-green-700">Input Tokens</p>
+                <p className="mt-1 text-2xl font-semibold text-green-900">{log.inputTokens.toLocaleString()}</p>
+              </div>
+              <div className="rounded-lg border-2 border-purple-200 bg-purple-50 p-4">
+                <p className="text-xs font-medium uppercase tracking-wide text-purple-700">Output Tokens</p>
+                <p className="mt-1 text-2xl font-semibold text-purple-900">{log.outputTokens.toLocaleString()}</p>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Cost Info */}
           <div className="rounded-lg border-2 border-blue-600 bg-gradient-to-br from-blue-600 to-blue-700 p-5 text-white shadow-lg">

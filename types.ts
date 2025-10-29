@@ -36,4 +36,14 @@ export interface UsageLog {
   costIDR: number;
   timestamp: string;
   inputText?: string;
+  // Simulator-specific fields
+  type?: 'estimator' | 'simulator-budget' | 'simulator-volume';
+  simulatorData?: {
+    mode?: 'budget' | 'volume';
+    modality?: string;
+    periodMonths?: number;
+    monthlyRequests?: number;
+    totalRequests?: number;
+    apiCallsPerDay?: number;
+  };
 }

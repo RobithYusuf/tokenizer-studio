@@ -199,10 +199,28 @@ const DashboardPage: React.FC = () => {
                   {usageLogs.slice(0, 15).map((log) => (
                     <tr key={log.id} className="hover:bg-blue-50 transition-colors cursor-pointer" onClick={() => handleViewLog(log)}>
                       <td className="px-6 py-4 whitespace-nowrap text-xs text-blue-700">{new Date(log.timestamp).toLocaleString()}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-900">{getProviderName(log.provider)}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-900">
+                        {log.type === 'simulator-budget' || log.type === 'simulator-volume' ? (
+                          <span className="inline-flex items-center gap-1">
+                            <span className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">Simulator</span>
+                            {getProviderName(log.provider)}
+                          </span>
+                        ) : (
+                          getProviderName(log.provider)
+                        )}
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-900">{log.model}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-xs text-right text-blue-700">
-                        {log.inputTokens.toLocaleString()} / {log.outputTokens.toLocaleString()}
+                        {log.type === 'simulator-budget' || log.type === 'simulator-volume' ? (
+                          <span className="text-xs">
+                            {log.simulatorData?.totalRequests?.toLocaleString() || 'N/A'} requests<br/>
+                            <span className="text-[10px] text-blue-500">
+                              {log.simulatorData?.modality || 'N/A'}
+                            </span>
+                          </span>
+                        ) : (
+                          `${log.inputTokens.toLocaleString()} / ${log.outputTokens.toLocaleString()}`
+                        )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-semibold text-blue-900">
                         ${log.costUSD.toFixed(6)}
