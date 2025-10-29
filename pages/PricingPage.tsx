@@ -171,7 +171,7 @@ const PricingPage: React.FC = () => {
       </Card>
 
       {/* Sticky Navigation */}
-      <div className={`sticky top-0 z-50 transition-all ${isSticky ? 'shadow-lg' : ''}`}>
+      <div className={`sticky top-16 z-30 transition-all ${isSticky ? 'shadow-lg' : ''}`}>
         <Card className={`${isSticky ? 'border-2 border-blue-300' : ''}`}>
           <div className="flex flex-col gap-4">
             {/* Source Tabs */}
@@ -723,7 +723,7 @@ const PricingPage: React.FC = () => {
       {showBackToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-50 rounded-full bg-blue-600 p-4 text-white shadow-lg transition-all hover:bg-blue-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          className="fixed bottom-6 right-6 z-30 rounded-full bg-blue-600 p-4 text-white shadow-lg transition-all hover:bg-blue-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           aria-label="Back to top"
         >
           <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
