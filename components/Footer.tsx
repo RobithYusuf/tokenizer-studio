@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
 
           <div className="flex items-center gap-4 text-xs text-blue-700">
             <a
-              href="https://github.com/robithdev"
+              href="https://robithdev.my.id"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 rounded-lg px-3 py-1.5 transition-colors hover:bg-blue-100"
@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
             <p>
               Made with <span className="text-red-500">♥</span> by{' '}
               <a
-                href="https://github.com/robithdev"
+                href="https://robithdev.my.id"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium text-blue-900 hover:underline"
