@@ -15,6 +15,8 @@ const PricingPage: React.FC = () => {
   const [source, setSource] = useState<PricingSource>('artificial-analysis');
   const [fxRate, setFxRate] = useState<FxRate | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
 
   useEffect(() => {
     const fetchRate = async () => {
@@ -23,6 +25,21 @@ const PricingPage: React.FC = () => {
     };
     fetchRate();
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setShowBackToTop(scrollPosition > 400);
+      setIsSticky(scrollPosition > 200);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Filter models based on source
   const filteredModels = useMemo(() => {
@@ -150,9 +167,15 @@ const PricingPage: React.FC = () => {
               </div>
             )}
           </div>
+        </div>
+      </Card>
 
-          {/* Source Tabs */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+      {/* Sticky Navigation */}
+      <div className={`sticky top-0 z-50 transition-all ${isSticky ? 'shadow-lg' : ''}`}>
+        <Card className={`${isSticky ? 'border-2 border-blue-300' : ''}`}>
+          <div className="flex flex-col gap-4">
+            {/* Source Tabs */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             <button
               onClick={() => {
                 setSource('artificial-analysis');
@@ -262,6 +285,7 @@ const PricingPage: React.FC = () => {
           </div>
         </div>
       </Card>
+      </div>
 
       {/* No Results */}
       {searchQuery && filteredModels.length === 0 && (
@@ -694,6 +718,19 @@ const PricingPage: React.FC = () => {
           </div>
         </div>
       </Card>
+
+      {/* Back to Top Button */}
+      {showBackToTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 z-50 rounded-full bg-blue-600 p-4 text-white shadow-lg transition-all hover:bg-blue-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          aria-label="Back to top"
+        >
+          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          </svg>
+        </button>
+      )}
     </div>
   );
 };
